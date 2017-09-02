@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service SubService {
+    rpc sub (SubRequest) returns (SubResponse);
+}
+
+message SubRequest {
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message SubResponse {
+    int32 result = 1;
+}

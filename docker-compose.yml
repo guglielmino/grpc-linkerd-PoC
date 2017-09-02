@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  protos:
+    build: ./protos
+    volumes:
+      - protos:/protos
+
+  svc-sum:
+    build: ./svc-sum
+    expose:
+      - 50051
+    volumes:
+      - protos:/protos
+    environment:
+      - PROTOS_PATH=/protos/
+
+  svc-sub:
+    build: ./svc-sub
+    expose:
+      - 50051
+    volumes:
+      - protos:/protos
+    environment:
+      - PROTOS_PATH=/protos/
+
+  consumer:
+    build: ./consumer
+    expose:
+      - 8080
+    volumes:
+      - protos:/protos
+    environment:
+      - PROTOS_PATH=/protos/
+
+
+  # linkerd
+  l5d:
+    image: buoyantio/linkerd:1.1.3
+    ports:
+    - "4140:4140"
+    - "9990:9990"
+    # we must mount the config file and the disco directory
+    volumes:
+    - ./linkerd.yaml:/io.buoyant/linkerd.yaml:ro
+    - ./disco:/io.buoyant/disco
+    command: >
+      /io.buoyant/linkerd.yaml
+
+volumes:
+  protos:

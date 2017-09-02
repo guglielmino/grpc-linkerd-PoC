@@ -1,0 +1,6 @@
+FROM node:8-onbuild
+
+ENV SERVER_PORT 50052
+
+
+EXPOSE $SERVER_PORT

@@ -1,0 +1,16 @@
+namers:
+- kind: io.l5d.fs             # Risoluzione semplice su filesystem
+  rootDir: /io.buoyant/disco
+
+routers:
+- protocol: h2                # HTTP/2 su cui poggia gRPC
+  experimental: true
+  client:
+    loadBalancer:
+      kind: roundRobin
+
+  dtab: |
+    /svc => /#/io.l5d.fs
+  servers:
+  - ip: 0.0.0.0
+    port: 4140
