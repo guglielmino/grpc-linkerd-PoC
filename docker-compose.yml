@@ -15,6 +15,7 @@ services:
       - protos:/protos
     environment:
       - PROTOS_PATH=/protos/
+      - LISTEN_PORT=50051
 
   svc-sub:
     build: ./svc-sub
@@ -24,6 +25,8 @@ services:
       - protos:/protos
     environment:
       - PROTOS_PATH=/protos/
+      - LISTEN_PORT=50051
+
 
   consumer:
     build: ./consumer
@@ -33,6 +36,8 @@ services:
       - protos:/protos
     environment:
       - PROTOS_PATH=/protos/
+      - SUM_SVC_HOST=l5d:4140
+      - SUB_SVC_HOST=l5d:4140
 
 
   # linkerd

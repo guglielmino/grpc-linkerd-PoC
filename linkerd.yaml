@@ -5,12 +5,17 @@ namers:
 routers:
 - protocol: h2                # HTTP/2 su cui poggia gRPC
   experimental: true
+  identifier:
+    kind: io.l5d.header.path
+    segments: 1
+
   client:
     loadBalancer:
       kind: roundRobin
 
   dtab: |
-    /svc => /#/io.l5d.fs
+    /svc => /#/io.l5d.fs;
+    /grpc => /srv;
   servers:
   - ip: 0.0.0.0
     port: 4140

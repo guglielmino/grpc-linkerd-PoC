@@ -21,7 +21,7 @@ function sum(call, callback) {
 function main() {
     var server = new grpc.Server();
     server.addService(SumService.service, {sum: sum});
-    server.bind('0.0.0.0:50052', grpc.ServerCredentials.createInsecure());
+    server.bind(`0.0.0.0:${process.env.LISTEN_PORT || 50052}`, grpc.ServerCredentials.createInsecure());
     server.start();
 }
 

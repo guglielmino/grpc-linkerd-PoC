@@ -32,7 +32,7 @@ function sub(call, callback) {
 function main() {
     var server = new grpc.Server();
     server.addService(SubService.service, {sub: sub});
-    server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+    server.bind(`0.0.0.0:${process.env.LISTEN_PORT || 50051}`, grpc.ServerCredentials.createInsecure());
     server.start();
 }
 
